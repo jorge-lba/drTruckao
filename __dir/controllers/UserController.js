@@ -51,7 +51,7 @@ exports.default = {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
-                        cellPhone = request.body.To.replace('whatsapp:', '');
+                        cellPhone = request.body.From.replace('whatsapp:', '');
                         return [4 /*yield*/, User_1.default.create({
                                 registrationData: {
                                     cellPhone: cellPhone

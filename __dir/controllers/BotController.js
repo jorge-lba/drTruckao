@@ -50,7 +50,7 @@ exports.default = {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        numberUSer = request.body.To.replace('whatsapp:', '');
+                        numberUSer = request.body.From.replace('whatsapp:', '');
                         messageUser = request.body.Body;
                         return [4 /*yield*/, User_1.default.find({ registrationData: { cellPhone: numberUSer } })];
                     case 1:
