@@ -7,7 +7,7 @@ export default {
         const type = request.body.type
         
         try {
-            const cellPhone = request.body.To.replace('whatsapp:','')
+            const cellPhone = request.body.From.replace('whatsapp:','')
     
             const userCreated = await User.create({
                 registrationData:{

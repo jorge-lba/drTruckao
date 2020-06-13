@@ -7,7 +7,7 @@ import UserController from './UserController'
 
 export default{
     async response(request:Request, response:Response){
-        const numberUSer = request.body.To.replace('whatsapp:','')
+        const numberUSer = request.body.From.replace('whatsapp:','')
         const messageUser = request.body.Body
 
         const user = await User.find({registrationData:{cellPhone:numberUSer}})
