@@ -2,7 +2,7 @@ import {Schema, model} from 'mongoose'
 
 const UserSchema = new Schema({
     registrationData:{
-        nome: String,
+        name: String,
         dateOfBirth: Date,
         phone:String,
         cellPhone:{type:String, requered:true, unique:true},
