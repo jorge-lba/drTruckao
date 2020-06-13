@@ -8,6 +8,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "ibm-watson": "^5.6.0",
+    "mongoose": "^5.9.18",
     "twilio": "^3.46.0"
   },
   "scripts": {
@@ -17,6 +18,7 @@
     "@types/cors": "^2.8.6",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.6",
+    "@types/mongoose": "^5.7.24",
     "@types/twilio": "^2.11.0"
   }
 }
