@@ -10,7 +10,7 @@ export default{
         const numberUSer = request.body.To.replace('whatsapp:','')
         const messageUser = request.body.Body
 
-        const [user] = await User.find({registrationData:{cellPhone:numberUSer}})
+        const user = await User.find({registrationData:{cellPhone:numberUSer}})
         console.log(user)
 
         console.log(numberUSer, messageUser)               
