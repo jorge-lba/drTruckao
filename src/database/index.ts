@@ -1,4 +1,7 @@
 import mongoose from 'mongoose'
+import {config} from 'dotenv'
+
+config()
 
 mongoose.Promise = global.Promise
 
@@ -9,4 +12,4 @@ mongoose.connect( String(process.env.URL_DATABASE), {
     useFindAndModify: false 
 } )
 
-module.exports = mongoose
+export default mongoose

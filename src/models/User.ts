@@ -1,4 +1,6 @@
-import {Schema, model} from 'mongoose'
+import mongoose from '../database/index'
+
+const {Schema, model} = mongoose
 
 const UserSchema = new Schema({
     registrationData:{
