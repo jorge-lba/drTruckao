@@ -39,38 +39,49 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var index_1 = require("../twilio/index");
-var index_2 = __importDefault(require("../watson/index"));
 var User_1 = __importDefault(require("../models/User"));
 exports.default = {
-    response: function (request, response) {
-        var _a;
+    create: function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var numberUSer, messageUser, user, twiml, watsonReponse;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var type, cellPhone, userCreated, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
-                        numberUSer = request.body.To.replace('whatsapp:', '');
-                        messageUser = request.body.Body;
-                        return [4 /*yield*/, User_1.default.find({ registrationData: { cellPhone: numberUSer } })];
+                        type = request.body.type;
+                        _a.label = 1;
                     case 1:
-                        user = _b.sent();
-                        console.log(user);
-                        console.log(numberUSer, messageUser);
-                        twiml = new index_1.TwilioMessagingResponse();
-                        return [4 /*yield*/, index_2.default(messageUser)];
+                        _a.trys.push([1, 3, , 4]);
+                        cellPhone = request.body.To.replace('whatsapp:', '');
+                        return [4 /*yield*/, User_1.default.create({
+                                registrationData: {
+                                    cellPhone: cellPhone
+                                }
+                            })];
                     case 2:
-                        watsonReponse = (_a = (_b.sent())) === null || _a === void 0 ? void 0 : _a.reduce(function (previous, current) {
-                            return String(previous + "\n" + current.text);
-                        }, '');
-                        console.log(watsonReponse);
-                        return [4 /*yield*/, twiml.message(watsonReponse)
-                            // response.writeHead();
-                        ];
+                        userCreated = _a.sent();
+                        if (type === 'api') {
+                            return [2 /*return*/, response.status(200).json({
+                                    message: 'Usuário criado com sucesso.',
+                                    user: userCreated
+                                })];
+                        }
+                        else {
+                            return [2 /*return*/, userCreated];
+                        }
+                        return [3 /*break*/, 4];
                     case 3:
-                        _b.sent();
-                        // response.writeHead();
-                        return [2 /*return*/, response.status(200).writeHead(200, { 'Content-Type': 'text/xml' }).end(twiml.toString())];
+                        error_1 = _a.sent();
+                        if (type === 'api') {
+                            return [2 /*return*/, response.status(200).json({
+                                    message: 'Erro na criação do usuário.',
+                                    error: error_1
+                                })];
+                        }
+                        else {
+                            return [2 /*return*/, error_1];
+                        }
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
             });
         });
