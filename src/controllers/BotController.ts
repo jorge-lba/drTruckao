@@ -13,7 +13,11 @@ const tagsMessages = {
     doesMedicalMonitoring:'#faz_monitoramento_medico',
     whereMedicalMonitoring:'#onde_monitoramento_medico',
     weight:'#qual_o_seu_peso',
-    endQuestions:'#finalizar_questoes'
+    height:'#qual_a_sual_altura',
+    diabetes:'#voce_tem_diabetes',
+    hypertension:'#voce_e_hipertenso',
+    cholesterol:'#voce_tem_colesterol',
+    endQuestions:'#finalizar_questoes',
 }
 
 const botMessages = [
@@ -49,6 +53,30 @@ const botMessages = [
     }, 
     {
         message:'Qual o seu peso atual?',
+        type:'dateOfBirth',
+        category:'registrationData',
+        nextAction:tagsMessages.height
+    },
+    {
+        message:'Qual sua altura?',
+        type:'dateOfBirth',
+        category:'registrationData',
+        nextAction:tagsMessages.diabetes
+    }, 
+    {
+        message:'Você já foi diagnosticado com diabetes?',
+        type:'dateOfBirth',
+        category:'registrationData',
+        nextAction:tagsMessages.hypertension
+    }, 
+    {
+        message:'Você já foi diagnosticado com pressão alta?',
+        type:'dateOfBirth',
+        category:'registrationData',
+        nextAction:tagsMessages.cholesterol
+    }, 
+    {
+        message:'Você já foi diagnosticado com colesterol alto?',
         type:'dateOfBirth',
         category:'registrationData',
         nextAction:tagsMessages.endQuestions
