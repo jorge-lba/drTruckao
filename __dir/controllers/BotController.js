@@ -50,13 +50,13 @@ var tagsMessages = {
 };
 var botMessages = [
     {
-        message: 'Olá, eu sou o Dr. Truckão.\nParece que não nos conhecemos ainda. Qual o seu nome?',
+        message: 'Olá, eu sou o Dr. Truckão.Parece que não nos conhecemos ainda. Qual o seu nome?',
         type: 'name',
         category: 'registrationData',
         nextAction: tagsMessages.dateOfBirth
     },
     {
-        message: 'Prazer em te conhecer.\nQual a sua data de nascimento?',
+        message: 'Prazer em te conhecer.Qual a sua data de nascimento?',
         type: 'dateOfBirth',
         category: 'registrationData',
         nextAction: tagsMessages.finalizeRegistration
@@ -109,7 +109,7 @@ exports.default = {
                     case 6: return [4 /*yield*/, index_1.twilioClient.messages.list({ to: 'whatsapp:' + numberUser, limit: 2 })];
                     case 7:
                         twilioMessages = _d.sent();
-                        messageFind = testLastMessage(twilioMessages[0].body);
+                        messageFind = testLastMessage(twilioMessages[0].body.replace('\n', ''));
                         console.log(messageFind);
                         console.log(twilioMessages);
                         if (!(messageFind === null || messageFind === void 0 ? void 0 : messageFind.type)) return [3 /*break*/, 10];
