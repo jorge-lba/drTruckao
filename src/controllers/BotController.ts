@@ -61,6 +61,8 @@ export default{
                 const twilioMessages = await twilioClient.messages.list({to:'whatsapp:'+numberUser, limit:2})
                 
                 const messageFind = testLastMessage(twilioMessages[0].body)
+                console.log(messageFind)
+                console.log(twilioMessages)
                 
                 if(messageFind?.type){
                     const watsonReponse:any = (await watsonSendMessage(messageFind.nextAction))

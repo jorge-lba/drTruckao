@@ -110,6 +110,8 @@ exports.default = {
                     case 7:
                         twilioMessages = _d.sent();
                         messageFind = testLastMessage(twilioMessages[0].body);
+                        console.log(messageFind);
+                        console.log(twilioMessages);
                         if (!(messageFind === null || messageFind === void 0 ? void 0 : messageFind.type)) return [3 /*break*/, 10];
                         return [4 /*yield*/, index_2.default(messageFind.nextAction)];
                     case 8:
