@@ -70,8 +70,9 @@ var botMessages = [
 ];
 var testLastMessage = function (message, preMessages) {
     if (preMessages === void 0) { preMessages = botMessages; }
-    return preMessages
-        .find(function (botMessage) { return botMessage.message === message; });
+    var msg = preMessages.find(function (botMessage) { return botMessage.message === message; });
+    console.log(msg);
+    return msg;
 };
 exports.default = {
     response: function (request, response) {
