@@ -46,20 +46,28 @@ exports.default = {
     response: function (request, response) {
         var _a;
         return __awaiter(this, void 0, void 0, function () {
-            var numberUSer, messageUser, user, twiml, watsonReponse;
+            var twiml, numberUSer, messageUser, user, watsonReponse, error_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
+                        twiml = new index_1.TwilioMessagingResponse();
+                        _b.label = 1;
+                    case 1:
+                        _b.trys.push([1, 5, , 6]);
                         numberUSer = request.body.From.replace('whatsapp:', '');
                         messageUser = request.body.Body;
-                        return [4 /*yield*/, User_1.default.find({ registrationData: { cellPhone: numberUSer } })];
-                    case 1:
-                        user = _b.sent();
-                        console.log(user);
-                        console.log(numberUSer, messageUser);
-                        twiml = new index_1.TwilioMessagingResponse();
-                        return [4 /*yield*/, index_2.default(messageUser)];
+                        return [4 /*yield*/, User_1.default.findOne({ registrationData: { cellPhone: numberUSer } })];
                     case 2:
+                        user = _b.sent();
+                        console.log(numberUSer, messageUser);
+                        if (user) {
+                            console.log(user);
+                        }
+                        else {
+                            console.log('Não cadastrado');
+                        }
+                        return [4 /*yield*/, index_2.default(messageUser)];
+                    case 3:
                         watsonReponse = (_a = (_b.sent())) === null || _a === void 0 ? void 0 : _a.reduce(function (previous, current) {
                             return String(previous + "\n" + current.text);
                         }, '');
@@ -67,10 +75,14 @@ exports.default = {
                         return [4 /*yield*/, twiml.message(watsonReponse)
                             // response.writeHead();
                         ];
-                    case 3:
+                    case 4:
                         _b.sent();
                         // response.writeHead();
                         return [2 /*return*/, response.status(200).writeHead(200, { 'Content-Type': 'text/xml' }).end(twiml.toString())];
+                    case 5:
+                        error_1 = _b.sent();
+                        return [2 /*return*/, response.status(400).writeHead(400, { 'Content-Type': 'text/xml' }).end(twiml.toString())];
+                    case 6: return [2 /*return*/];
                 }
             });
         });
