@@ -29,7 +29,7 @@ export default{
                 await twiml.message(watsonReponse)
                 console.log(twilioMessages)
             }else{
-                const watsonReponse:any = (await watsonSendMessage('bom dia novato'))
+                const watsonReponse:any = (await watsonSendMessage('#bom_dia_novato'))
                     ?.reduce((previous, current) => {
                         return String(previous + "\n" + current.text)
                     }, '')

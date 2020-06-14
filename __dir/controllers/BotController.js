@@ -75,7 +75,7 @@ exports.default = {
                         _d.sent();
                         console.log(twilioMessages);
                         return [3 /*break*/, 9];
-                    case 6: return [4 /*yield*/, index_2.default('bom dia novato')];
+                    case 6: return [4 /*yield*/, index_2.default('#bom_dia_novato')];
                     case 7:
                         watsonReponse_2 = (_b = (_d.sent())) === null || _b === void 0 ? void 0 : _b.reduce(function (previous, current) {
                             return String(previous + "\n" + current.text);
