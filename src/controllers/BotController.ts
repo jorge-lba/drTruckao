@@ -19,7 +19,7 @@ export default{
             console.log(numberUser, messageUser)   
             
             if(user){
-                const twilioMessages = await twilioClient.messages.list({from:numberUser})
+                const twilioMessages = await twilioClient.messages.list({to:numberUser})
                 console.log(twilioMessages)
             }else{
                 console.log('Não cadastrado')
