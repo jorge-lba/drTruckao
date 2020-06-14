@@ -53,8 +53,9 @@ export default{
             const user:any = await User.findOne({registrationData:{cellPhone:numberUser}})     
 
             console.log(numberUser, messageUser)   
-            
-            if(user.registrationData.dateOfBirth){
+
+                        
+            if(user){
                 const twilioMessages = await twilioClient.messages.list({from:'whatsapp:'+numberUser, limit:2})
                 const watsonReponse:any = (await watsonSendMessage(messageUser))
                     ?.reduce((previous, current) => {

@@ -96,7 +96,7 @@ exports.default = {
                     case 2:
                         user = _d.sent();
                         console.log(numberUser, messageUser);
-                        if (!user.registrationData.dateOfBirth) return [3 /*break*/, 6];
+                        if (!user) return [3 /*break*/, 6];
                         return [4 /*yield*/, index_1.twilioClient.messages.list({ from: 'whatsapp:' + numberUser, limit: 2 })];
                     case 3:
                         twilioMessages = _d.sent();
