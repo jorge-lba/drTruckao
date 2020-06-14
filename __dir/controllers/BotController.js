@@ -46,7 +46,11 @@ var tagsMessages = {
     dateOfBirth: '#data_de_nascimento',
     finalizeRegistration: '#fim_do_pre_cadastro',
     nonResponse: '#nao_quero_responsder',
-    yesResponse: '#sim_quero_responder'
+    yesResponse: '#sim_quero_responder',
+    doesMedicalMonitoring: '#faz_monitoramento_medico',
+    whereMedicalMonitoring: '#onde_monitoramento_medico',
+    weight: '#qual_o_seu_peso',
+    endQuestions: '#finalizar_questoes'
 };
 var botMessages = [
     {
@@ -65,8 +69,26 @@ var botMessages = [
         message: 'Eu gostaria de fazer algumas pergunta sobre a sua saúde. Podemos iniciar?',
         type: 'startQuestions',
         category: 'continue',
-        nextAction: ''
-    }
+        nextAction: tagsMessages.doesMedicalMonitoring
+    },
+    {
+        message: 'Você faz acompanhamento médico?',
+        type: 'dateOfBirth',
+        category: 'registrationData',
+        nextAction: tagsMessages.whereMedicalMonitoring
+    },
+    {
+        message: 'Onde você faz o acompanhamento?',
+        type: 'dateOfBirth',
+        category: 'registrationData',
+        nextAction: tagsMessages.weight
+    },
+    {
+        message: 'Qual o seu peso atual?',
+        type: 'dateOfBirth',
+        category: 'registrationData',
+        nextAction: tagsMessages.endQuestions
+    },
 ];
 var testLastMessage = function (message, preMessages) {
     if (preMessages === void 0) { preMessages = botMessages; }
