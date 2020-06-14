@@ -34,7 +34,11 @@ const botMessages = [
 ]
 
 const testLastMessage = (message:string, preMessages = botMessages) => {
-   const msg = preMessages.find((botMessage:any) => botMessage.message === message )
+   const msg = preMessages.find((botMessage:any) =>{
+        console.log(botMessage.message)
+        console.log(message)
+        return botMessage.message === message 
+   })
    console.log(msg)
    return msg
 } 
