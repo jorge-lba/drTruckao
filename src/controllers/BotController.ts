@@ -11,14 +11,16 @@ export default{
     async response(request:Request, response:Response){
         const twiml = new TwilioMessagingResponse()
         try {
-            const numberUSer = request.body.From.replace('whatsapp:','')
+            const numberUser = request.body.From.replace('whatsapp:','')
             const messageUser = request.body.Body
     
-            const user = await User.findOne({registrationData:{cellPhone:numberUSer}})     
-            console.log(numberUSer, messageUser)   
+            const user = await User.findOne({registrationData:{cellPhone:numberUser}})     
+
+            console.log(numberUser, messageUser)   
             
             if(user){
-                console.log(user)
+                const twilioMessages = await twilioClient.messages.list({from:numberUser})
+                console.log(twilioMessages)
             }else{
                 console.log('Não cadastrado')
             }
