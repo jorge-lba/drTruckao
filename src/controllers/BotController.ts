@@ -19,9 +19,23 @@ export default{
             console.log(numberUser, messageUser)   
             
             if(user){
-                const twilioMessages = await twilioClient.messages.list({from:'whatsapp:'+numberUser, limit:5})
+                const twilioMessages = await twilioClient.messages.list({from:'whatsapp:'+numberUser, limit:3})
+                const watsonReponse:any = (await watsonSendMessage(messageUser))
+                    ?.reduce((previous, current) => {
+                        return String(previous + "\n" + current.text)
+                    }, '')
+            
+                console.log(watsonReponse)
+                await twiml.message(watsonReponse)
                 console.log(twilioMessages)
             }else{
+                const watsonReponse:any = (await watsonSendMessage('bom dia novato'))
+                    ?.reduce((previous, current) => {
+                        return String(previous + "\n" + current.text)
+                    }, '')
+            
+                console.log(watsonReponse)
+                await twiml.message(watsonReponse)
                 console.log('Não cadastrado')
             }
     

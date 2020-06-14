@@ -44,48 +44,65 @@ var index_2 = __importDefault(require("../watson/index"));
 var User_1 = __importDefault(require("../models/User"));
 exports.default = {
     response: function (request, response) {
-        var _a;
+        var _a, _b, _c;
         return __awaiter(this, void 0, void 0, function () {
-            var twiml, numberUser, messageUser, user, twilioMessages, watsonReponse, error_1;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var twiml, numberUser, messageUser, user, twilioMessages, watsonReponse_1, watsonReponse_2, watsonReponse, error_1;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
                         twiml = new index_1.TwilioMessagingResponse();
-                        _b.label = 1;
+                        _d.label = 1;
                     case 1:
-                        _b.trys.push([1, 8, , 9]);
+                        _d.trys.push([1, 12, , 13]);
                         numberUser = request.body.From.replace('whatsapp:', '');
                         messageUser = request.body.Body;
                         return [4 /*yield*/, User_1.default.findOne({ registrationData: { cellPhone: numberUser } })];
                     case 2:
-                        user = _b.sent();
+                        user = _d.sent();
                         console.log(numberUser, messageUser);
-                        if (!user) return [3 /*break*/, 4];
-                        return [4 /*yield*/, index_1.twilioClient.messages.list({ from: 'whatsapp:' + numberUser, limit: 5 })];
+                        if (!user) return [3 /*break*/, 6];
+                        return [4 /*yield*/, index_1.twilioClient.messages.list({ from: 'whatsapp:' + numberUser, limit: 3 })];
                     case 3:
-                        twilioMessages = _b.sent();
-                        console.log(twilioMessages);
-                        return [3 /*break*/, 5];
+                        twilioMessages = _d.sent();
+                        return [4 /*yield*/, index_2.default(messageUser)];
                     case 4:
+                        watsonReponse_1 = (_a = (_d.sent())) === null || _a === void 0 ? void 0 : _a.reduce(function (previous, current) {
+                            return String(previous + "\n" + current.text);
+                        }, '');
+                        console.log(watsonReponse_1);
+                        return [4 /*yield*/, twiml.message(watsonReponse_1)];
+                    case 5:
+                        _d.sent();
+                        console.log(twilioMessages);
+                        return [3 /*break*/, 9];
+                    case 6: return [4 /*yield*/, index_2.default('bom dia novato')];
+                    case 7:
+                        watsonReponse_2 = (_b = (_d.sent())) === null || _b === void 0 ? void 0 : _b.reduce(function (previous, current) {
+                            return String(previous + "\n" + current.text);
+                        }, '');
+                        console.log(watsonReponse_2);
+                        return [4 /*yield*/, twiml.message(watsonReponse_2)];
+                    case 8:
+                        _d.sent();
                         console.log('Não cadastrado');
-                        _b.label = 5;
-                    case 5: return [4 /*yield*/, index_2.default(messageUser)];
-                    case 6:
-                        watsonReponse = (_a = (_b.sent())) === null || _a === void 0 ? void 0 : _a.reduce(function (previous, current) {
+                        _d.label = 9;
+                    case 9: return [4 /*yield*/, index_2.default(messageUser)];
+                    case 10:
+                        watsonReponse = (_c = (_d.sent())) === null || _c === void 0 ? void 0 : _c.reduce(function (previous, current) {
                             return String(previous + "\n" + current.text);
                         }, '');
                         console.log(watsonReponse);
                         return [4 /*yield*/, twiml.message(watsonReponse)
                             // response.writeHead();
                         ];
-                    case 7:
-                        _b.sent();
+                    case 11:
+                        _d.sent();
                         // response.writeHead();
                         return [2 /*return*/, response.status(200).writeHead(200, { 'Content-Type': 'text/xml' }).end(twiml.toString())];
-                    case 8:
-                        error_1 = _b.sent();
+                    case 12:
+                        error_1 = _d.sent();
                         return [2 /*return*/, response.status(400).writeHead(400, { 'Content-Type': 'text/xml' }).end(twiml.toString())];
-                    case 9: return [2 /*return*/];
+                    case 13: return [2 /*return*/];
                 }
             });
         });
