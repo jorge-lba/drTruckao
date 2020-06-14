@@ -54,6 +54,7 @@ var tagsMessages = {
     diabetes: '#voce_tem_diabetes',
     hypertension: '#voce_e_hipertenso',
     cholesterol: '#voce_tem_colesterol',
+    receiveTips: '#quer_receber_dias',
     endQuestions: '#finalizar_questoes',
 };
 var botMessages = [
@@ -115,17 +116,20 @@ var botMessages = [
         message: 'Você já foi diagnosticado com colesterol alto?',
         type: 'dateOfBirth',
         category: 'registrationData',
+        nextAction: tagsMessages.receiveTips
+    },
+    {
+        message: 'Você gostaria de receber dicas e sugestões de saúde e bem-estar?',
+        type: 'dateOfBirth',
+        category: 'registrationData',
         nextAction: tagsMessages.endQuestions
     },
 ];
 var testLastMessage = function (message, preMessages) {
     if (preMessages === void 0) { preMessages = botMessages; }
     var msg = preMessages.find(function (botMessage) {
-        console.log(botMessage.message);
-        console.log(message);
         return botMessage.message === message;
     });
-    console.log(msg);
     return msg;
 };
 exports.default = {
@@ -139,7 +143,7 @@ exports.default = {
                         twiml = new index_1.TwilioMessagingResponse();
                         _d.label = 1;
                     case 1:
-                        _d.trys.push([1, 15, , 16]);
+                        _d.trys.push([1, 14, , 15]);
                         numberUser = request.body.From.replace('whatsapp:', '');
                         messageUser = request.body.Body;
                         return [4 /*yield*/, User_1.default.findOne({ registrationData: { cellPhone: numberUser } })];
@@ -155,25 +159,20 @@ exports.default = {
                         watsonReponse = (_a = (_d.sent())) === null || _a === void 0 ? void 0 : _a.reduce(function (previous, current) {
                             return String(previous + "\n" + current.text);
                         }, '');
-                        console.log(watsonReponse);
                         return [4 /*yield*/, twiml.message(watsonReponse)];
                     case 5:
                         _d.sent();
-                        console.log(twilioMessages);
-                        return [3 /*break*/, 14];
+                        return [3 /*break*/, 13];
                     case 6: return [4 /*yield*/, index_1.twilioClient.messages.list({ to: 'whatsapp:' + numberUser, limit: 2 })];
                     case 7:
                         twilioMessages = _d.sent();
                         messageFind = testLastMessage(twilioMessages[0].body.replace('\n', ''));
-                        console.log(messageFind);
-                        console.log(twilioMessages);
                         if (!(messageFind === null || messageFind === void 0 ? void 0 : messageFind.type)) return [3 /*break*/, 10];
                         return [4 /*yield*/, index_2.default(messageFind.nextAction)];
                     case 8:
                         watsonReponse = (_b = (_d.sent())) === null || _b === void 0 ? void 0 : _b.reduce(function (previous, current) {
                             return String(previous + "\n" + current.text);
                         }, '');
-                        console.log(watsonReponse);
                         return [4 /*yield*/, twiml.message(watsonReponse)];
                     case 9:
                         _d.sent();
@@ -183,19 +182,15 @@ exports.default = {
                         watsonReponse = (_c = (_d.sent())) === null || _c === void 0 ? void 0 : _c.reduce(function (previous, current) {
                             return String(previous + "\n" + current.text);
                         }, '');
-                        console.log(watsonReponse);
                         return [4 /*yield*/, twiml.message(watsonReponse)];
                     case 12:
                         _d.sent();
                         _d.label = 13;
-                    case 13:
-                        console.log('Não cadastrado');
-                        _d.label = 14;
-                    case 14: return [2 /*return*/, response.status(200).writeHead(200, { 'Content-Type': 'text/xml' }).end(twiml.toString())];
-                    case 15:
+                    case 13: return [2 /*return*/, response.status(200).writeHead(200, { 'Content-Type': 'text/xml' }).end(twiml.toString())];
+                    case 14:
                         error_1 = _d.sent();
                         return [2 /*return*/, response.status(400).writeHead(400, { 'Content-Type': 'text/xml' }).end(twiml.toString())];
-                    case 16: return [2 /*return*/];
+                    case 15: return [2 /*return*/];
                 }
             });
         });

@@ -17,6 +17,7 @@ const tagsMessages = {
     diabetes:'#voce_tem_diabetes',
     hypertension:'#voce_e_hipertenso',
     cholesterol:'#voce_tem_colesterol',
+    receiveTips:'#quer_receber_dias',
     endQuestions:'#finalizar_questoes',
 }
 
@@ -79,17 +80,20 @@ const botMessages = [
         message:'Você já foi diagnosticado com colesterol alto?',
         type:'dateOfBirth',
         category:'registrationData',
+        nextAction:tagsMessages.receiveTips
+    },
+    {
+        message:'Você gostaria de receber dicas e sugestões de saúde e bem-estar?',
+        type:'dateOfBirth',
+        category:'registrationData',
         nextAction:tagsMessages.endQuestions
     }, 
 ]
 
 const testLastMessage = (message:string, preMessages = botMessages) => {
    const msg = preMessages.find((botMessage:any) =>{
-        console.log(botMessage.message)
-        console.log(message)
         return botMessage.message === message 
    })
-   console.log(msg)
    return msg
 } 
 
@@ -111,35 +115,29 @@ export default{
                     ?.reduce((previous, current) => {
                         return String(previous + "\n" + current.text)
                     }, '')
-            
-                console.log(watsonReponse)
+
                 await twiml.message(watsonReponse)
-                console.log(twilioMessages)
             }else{
                 const twilioMessages = await twilioClient.messages.list({to:'whatsapp:'+numberUser, limit:2})
                 
                 const messageFind = testLastMessage(twilioMessages[0].body.replace('\n',''))
-                console.log(messageFind)
-                console.log(twilioMessages)
                 
                 if(messageFind?.type){
                     const watsonReponse:any = (await watsonSendMessage(messageFind.nextAction))
                         ?.reduce((previous, current) => {
                             return String(previous + "\n" + current.text)
                         }, '')
-                    console.log(watsonReponse)
+
                     await twiml.message(watsonReponse)
                 }else{
                     const watsonReponse:any = (await watsonSendMessage('#bom_dia_novato'))
                         ?.reduce((previous, current) => {
                             return String(previous + "\n" + current.text)
                         }, '')
-                    console.log(watsonReponse)
+
                     await twiml.message(watsonReponse)
                 }
 
-            
-                console.log('Não cadastrado')
             }
 
             return response.status(200).writeHead(200, {'Content-Type': 'text/xml'}).end(twiml.toString())  
