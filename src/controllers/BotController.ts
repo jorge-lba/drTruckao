@@ -38,16 +38,7 @@ export default{
                 await twiml.message(watsonReponse)
                 console.log('Não cadastrado')
             }
-    
-            const watsonReponse:any = (await watsonSendMessage(messageUser))
-                ?.reduce((previous, current) => {
-                    return String(previous + "\n" + current.text)
-                }, '')
-            
-            console.log(watsonReponse)
-            await twiml.message(watsonReponse)
-    
-            // response.writeHead();
+
             return response.status(200).writeHead(200, {'Content-Type': 'text/xml'}).end(twiml.toString())  
         } catch (error) {
             return response.status(400).writeHead(400, {'Content-Type': 'text/xml'}).end(twiml.toString())
